@@ -1,0 +1,25 @@
+
+  <h1>Welcome <%= session[:username] %></h1>
+<a href="/logout" id="logout">Log Out</a>
+<% if flash[:notice] %>
+  <% flash[:notice].each do |note| %>
+    <p id="notice"><%= note %></p>  
+  <% end %>
+<% end %>
+<form action="/message" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <div class="form-group">
+    <label for="content">Post a Message</label>
+      <textarea class="form-control" rows="5" id = "message_message" name="message[message]"></textarea>
+  </div>
+  <input type="submit" class="btn" name="Post Message" value="Post Message">
+</form>
+
+
+<% @messages.each do |msg| %>
+<ul>
+  <li><%= msg.user.username %><%= msg.created_at %>
+  <%= msg.message %></li>
+</ul>  
+<% end %>
+
